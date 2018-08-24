@@ -1,0 +1,114 @@
+p {
+    font-family: Courier New, Courier, monospace;         
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    -webkit-transition-duration: 1.6s;
+    -o-transition-duration: 1.6s;
+    transition-duration: 1.6;
+}
+
+.container:nth-child(1) {
+    opacity: 1;
+}
+
+.hero-container {
+    margin-top: -51px;
+    width: 100%;
+    height: 100vh;
+    color: white;
+    text-align: center;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.3) 100%), url('../images/workspace-mini.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.hero-container h1 {
+    font-size: 5em;
+    margin-top: 0;
+    margin-bottom: 0.2em;
+    color: rgb(26, 26, 26);
+    -webkit-transition-duration: 0.4s;
+    -o-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    -webkit-transition-delay: 0;
+    -o-transition-delay: 0;
+    transition-delay: 0;
+}
+
+.hero-container h2 {
+    margin-bottom: 0.2em;
+    color: rgb(26, 26, 26);
+}
+
+.hero-item {
+    max-width: 1200px;
+}
+
+#hero-comment {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.hero-btn {
+    display: inline-block;
+    border-radius: 12px;
+    background-color: #274667;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 300px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.hero-btn a {
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.hero-btn a:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.hero-btn:hover a {
+    padding-right: 25px;
+}
+
+.hero-btn:hover a:after {
+    opacity: 1;
+    right: 0;
+}
+
+@media only screen and (min-width: 801px) {
+    .hero-btn {
+        margin-top: 50px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .hero-container h1 {
+        font-size: 3em;
+    }
+    .hero-btn {
+        margin-top: 50px;
+    }
+}

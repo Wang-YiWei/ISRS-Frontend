@@ -1,0 +1,100 @@
+.list-btn:link,
+.list-btn:visited {
+    background-color: #274667;
+    color: white;
+    padding: 12px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: ease-in-out;
+    transition-duration: 150ms;
+    border-radius: 6px;
+    -webkit-box-shadow: 3px 5px 2px 1px #27466785;
+    box-shadow: 3px 5px 2px 1px #27466785;
+}
+
+.list-btn:hover,
+.list-btn:active {
+    background-color: #ffc934;
+}
+
+.sheetList-wrapper {
+    width: 100vw;
+    min-height: calc(100vh - 51px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(245, 245, 245);    
+}
+
+.sheet-list {
+    width: 1200px;
+    padding-bottom: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 50px;
+}
+
+.mySheet {
+    width: 320px;
+    height: 170px;
+    flex-basis: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 60px;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 4px 6px 4px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 4px 6px 4px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.sheet-title {
+    text-align: center;
+    width: 250px;
+    font-size: 22px;
+    margin-top: 30px;
+    color: #3a3a3a;
+}
+
+.sheet-id {
+    text-align: center;
+    width: 250px;
+    font-size: 18px;
+    color: #3a3a3a;
+}
+
+.sheet-btns {
+    width: 250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+
+.sheet-btn {
+    background-color: #274667;
+    color: white;
+    border: 1px solid #274667;
+    /* border-radius: 8px; */
+    width: 120px;
+    height: 40px;
+    font-size: 16px;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    justify-content: center;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.sheet-btn:hover {
+    border: 1px solid #ffc934;
+    background-color: #ffc934;
+    color: #274667;
+}

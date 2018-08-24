@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    font-family: Courier New, Courier, monospace;
+    background-color: #F1F1F1;
+}
+
+.container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    /* align-items: center; */
+}
+
+.item {
+    /* text-align: center; */
+    flex-basis: auto;
+    -ms-flex-preferred-size: auto;
+}
+
+.hero-container {
+    justify-content: flex-start;
+    align-items: center;
+}
