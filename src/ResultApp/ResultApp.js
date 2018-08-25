@@ -15,7 +15,9 @@ class ResultApp extends React.Component {
     }
 
     componentDidMount() {
-        fetch("/action/visualize_json/"+ sessionStorage.sheet_id +"/")
+        fetch("/action/visualize_json/"+ sessionStorage.sheet_id +"/",{
+            credentials: 'include'
+        })
         .then(res => res.json())
         .then(
           (result) => {

@@ -12,7 +12,9 @@ class ListApp extends React.Component {
     }
 
     componentDidMount() {
-        fetch("/action/list_json/")
+        fetch("/action/list_json/",{
+            credentials: 'include'
+        })
         .then(res => res.json())
         .then(
           (result) => {

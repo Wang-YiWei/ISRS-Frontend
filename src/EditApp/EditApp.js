@@ -292,7 +292,9 @@ class RecognitionApp extends React.Component {
 
     componentDidMount() {
         console.log("componentDidMount");
-        fetch("/action/edit_json/"+ sessionStorage.sheet_id +"/")
+        fetch("/action/edit_json/"+ sessionStorage.sheet_id +"/",{
+            credentials: 'include'
+        })
         .then(res => res.json())
         .then(
           (result) => {
