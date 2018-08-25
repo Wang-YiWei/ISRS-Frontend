@@ -371,7 +371,7 @@ class RecognitionApp extends React.Component {
 	}
 }
 
-ReactDOM.render(<RecognitionApp />, document.getElementById('recognition'));
+ReactDOM.render(<EditApp />, document.getElementById('recognition'));
 
 function sendRequest(sheetData,update){
 	console.log(sheetData,update);
