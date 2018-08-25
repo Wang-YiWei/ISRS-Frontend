@@ -43,10 +43,10 @@ class ListApp extends React.Component {
                                     id : {this.state.sheet_ids[index]}
                                 </div>
                                 <div className="sheet-btns">
-                                    <a className="list-btn visual-btn" href={"/visualize/"+this.state.sheet_ids[index]+"/"} target="_blank">
+                                    <a className="list-btn visual-btn" href={"/action/visualize/"+this.state.sheet_ids[index]+"/"}>
                                         查看結果
                                     </a>
-                                    <a className="list-btn edit-btn" href="/" target="_blank">編輯問卷</a>
+                                    <a className="list-btn edit-btn" href={"/action/edit/" + this.state.sheet_ids[index]+"/"}>編輯問卷</a>
                                 </div>
                             </div>
                         ))
