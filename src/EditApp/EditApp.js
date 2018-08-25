@@ -6,7 +6,7 @@ import BtnContainer from '../RecognitionApp/BtnContainer/BtnContainer.js';
 
 // todo : e.preventDefault();
 
-class RecognitionApp extends React.Component {
+class EditApp extends React.Component {
 	constructor(props) {
 		super(props);
 		// confirm number
