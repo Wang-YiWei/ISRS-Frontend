@@ -302,7 +302,7 @@ class EditApp extends React.Component {
 
     componentDidMount() {
         console.log("componentDidMount");
-        fetch("http://18.218.154.134/action/edit_json/"+ sessionStorage.sheet_id +"/",{
+        fetch("/action/edit_json/"+ sessionStorage.sheet_id +"/",{
             credentials: 'include'
 		})
 		.then(res => res.json())
