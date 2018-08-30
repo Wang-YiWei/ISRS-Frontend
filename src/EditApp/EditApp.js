@@ -4,8 +4,6 @@ import ReactDOM from 'react-dom';
 import SheetContainer from '../RecognitionApp/SheetContainer/SheetContainer.js';
 import BtnContainer from '../RecognitionApp/BtnContainer/BtnContainer.js';
 
-// todo : e.preventDefault();
-
 class EditApp extends React.Component {
 	constructor(props) {
 		super(props);
@@ -35,9 +33,9 @@ class EditApp extends React.Component {
 
 		this.state = {
 			total_ques_num : 0,
-			total_ques_num_backup : 3,
+			total_ques_num_backup : 0,
 			total_opt_num : 0,
-			total_opt_num_backup : 5,
+			total_opt_num_backup : 0,
 			current_prob_num:1,
 			current_prob_num_for_opt:1,			
 			current_opt_num:1,			
@@ -72,33 +70,7 @@ class EditApp extends React.Component {
 				},
 				{
 					'prob_num' : 2,
-					'problem': '請問您對櫃位所提供的「擇性」滿意度為何？',
-					'options': [
-						{
-							opt_num : 1,
-							description : '極度滿意'
-						},
-						{
-							opt_num : 2,
-							description : '滿意'
-						},
-						{
-							opt_num : 3,
-							description : '普通'
-						},
-						{
-							opt_num : 4,
-							description : '不滿意'
-						},
-						{
-							opt_num : 5,
-							description : '極度不滿意'
-						}
-					]
-				},
-				{
-					'prob_num' : 3,
-					'problem': '請問您對櫃位所提供的「213213」滿意度為何？',
+					'problem': '請問您對櫃位所提供的「餐點選擇性」滿意度為何？',
 					'options': [
 						{
 							opt_num : 1,
@@ -132,16 +104,13 @@ class EditApp extends React.Component {
   
 	handleClickTotalNum(e) {
 		// check ques num
-		if(this.state.total_ques_num > 0 && this.state.total_opt_num > 0 )
+		if(this.state.total_ques_num > 0 && this.state.total_opt_num > 1 )
 		{
-			// todo : pop extra ques
-			var new_ques_set;
+			var new_ques_set = this.state.ques_set.slice(0);
+			// pop extra ques
 			if(this.state.total_ques_num < this.state.total_ques_num_backup){
 				new_ques_set = this.state.ques_set.slice(0,this.state.total_ques_num);
-				// this.setState({ques_set: new_ques_set});
-				// console.log("in-----");				
 			}
-			// tofix : setState 一次就好
 			if(this.state.total_opt_num < this.state.total_opt_num_backup){
 				for(let i = 0 ; i < new_ques_set.length ; i++){
 					for(let j = 0 ; j < new_ques_set[i].options.length ; j++){
@@ -149,32 +118,38 @@ class EditApp extends React.Component {
 						new_ques_set[i].options = new_options;
 					}
 				}
-				this.setState({ques_set: new_ques_set});
-				console.log("in--");
 			}
+			this.setState({ques_set: new_ques_set});			
 			showDataField();
+		}
+		else{
+			if(this.state.total_ques_num < 1){
+				window.alert("題目數範圍限定在1~8之間，請重新輸入");	
+			}
+			else{
+				window.alert("選項數範圍限定在2~5之間，請重新輸入");
+			}
+			
 		}
 	}
 
 	// tofix : check is number or not
 	handleChangeTotalQuesNum(e) {
 		if( 0 < (Number.parseInt(e.target.value, 10)) &&
-				(Number.parseInt(e.target.value, 10) <= 100)){
+				(Number.parseInt(e.target.value, 10) <= 8)){
 				let inputNum = Number.parseInt(e.target.value, 10);
 				this.setState({total_ques_num: inputNum});
 		}else{
 			this.setState({total_ques_num: 0});
-			window.alert("題目數範圍限定在1~100之間，請重新輸入");
 		}
 	}
 	
 	handleChangeTotalOptNum(e) {
-		if( 0 < (Number.parseInt(e.target.value, 10)) &&
-				(Number.parseInt(e.target.value, 10) <= 100)){	
+		if( 1 < (Number.parseInt(e.target.value, 10)) &&
+				(Number.parseInt(e.target.value, 10) <= 5)){	
 			this.setState({total_opt_num: Number.parseInt(e.target.value, 10)});
 		}else{
 			this.setState({total_opt_num: 0});
-			window.alert("選項數範圍限定在1~100之間，請重新輸入");						
 		}
 	}
 
@@ -368,40 +343,40 @@ class EditApp extends React.Component {
 
     componentDidMount() {
         console.log("componentDidMount");
-        fetch("/action/edit_json/"+ sessionStorage.sheet_id +"/",{
-            credentials: 'include'
-		})
-		.then(res => res.json())
-        .then(
-          (result) => {
-            console.log(result.sheet_type);
+        // fetch("/action/edit_json/"+ sessionStorage.sheet_id +"/",{
+        //     credentials: 'include'
+		// })
+		// .then(res => res.json())
+        // .then(
+        //   (result) => {
+        //     console.log(result.sheet_type);
 
-            var sheetData = parseData(result);
+        //     var sheetData = parseData(result);
 
-            this.setState({
-				total_ques_num : sheetData.total_ques_num,
-				total_ques_num_backup : sheetData.total_ques_num,				
-				total_opt_num : sheetData.total_opt_num,
-				total_opt_num_backup : sheetData.total_opt_num,
-                sheet_title : sheetData.sheet_title,
-                sheet_footer : sheetData.sheet_footer,
-                sheet_type:sheetData.sheet_type,
-				ques_set: sheetData.ques_set
-            });      
+        //     this.setState({
+		// 		total_ques_num : sheetData.total_ques_num,
+		// 		total_ques_num_backup : sheetData.total_ques_num,				
+		// 		total_opt_num : sheetData.total_opt_num,
+		// 		total_opt_num_backup : sheetData.total_opt_num,
+        //         sheet_title : sheetData.sheet_title,
+        //         sheet_footer : sheetData.sheet_footer,
+        //         sheet_type:sheetData.sheet_type,
+		// 		ques_set: sheetData.ques_set
+        //     });      
             
-            document.getElementById('sheet-title').value = sheetData.sheet_title;
-            document.getElementById('sheet-footer').value = sheetData.sheet_footer;                     
+        //     document.getElementById('sheet-title').value = sheetData.sheet_title;
+        //     document.getElementById('sheet-footer').value = sheetData.sheet_footer;                     
 			
-			document.getElementById('prob-num').disabled = false;
-			document.getElementById('option-num').disabled = false;			
-			document.getElementById('confirm-num-btn').disabled = false;
+		// 	document.getElementById('prob-num').disabled = false;
+		// 	document.getElementById('option-num').disabled = false;			
+		// 	document.getElementById('confirm-num-btn').disabled = false;
 			     
-            triggerOnChange(sheetData);            
-          },
-          (error) => {
-        	console.log(error);
-          }
-        )
+        //     triggerOnChange(sheetData);            
+        //   },
+        //   (error) => {
+        // 	console.log(error);
+        //   }
+        // )
     }
 
 	componentDidUpdate() {

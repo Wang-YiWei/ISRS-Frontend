@@ -100,16 +100,39 @@ class RecognitionApp extends React.Component {
   	}
   
 	handleClickTotalNum(e) {
-		if(this.state.total_ques_num > 0 && this.state.total_opt_num > 0 )
+		if(this.state.total_ques_num > 0 && this.state.total_opt_num > 1 )
 		{
+			var new_ques_set = this.state.ques_set.slice(0);
+			// pop extra ques
+			if(this.state.total_ques_num < this.state.total_ques_num_backup){
+				new_ques_set = this.state.ques_set.slice(0,this.state.total_ques_num);
+			}
+			if(this.state.total_opt_num < this.state.total_opt_num_backup){
+				for(let i = 0 ; i < new_ques_set.length ; i++){
+					for(let j = 0 ; j < new_ques_set[i].options.length ; j++){
+						var new_options = new_ques_set[i].options.slice(0,this.state.total_opt_num);
+						new_ques_set[i].options = new_options;
+					}
+				}
+			}
+			this.setState({ques_set: new_ques_set});			
 			showDataField();
+		}
+		else{
+			if(this.state.total_ques_num < 1){
+				window.alert("題目數範圍限定在1~8之間，請重新輸入");	
+			}
+			else{
+				window.alert("選項數範圍限定在2~5之間，請重新輸入");
+			}
+			
 		}
 	}
 
 	// tofix : check is number or not
 	handleChangeTotalQuesNum(e) {
 		if( 0 < (Number.parseInt(e.target.value, 10)) &&
-				(Number.parseInt(e.target.value, 10) <= 100)){
+				(Number.parseInt(e.target.value, 10) <= 8)){
 			this.setState({total_ques_num: Number.parseInt(e.target.value, 10)});			
 		}else{
 			this.setState({total_ques_num: 0});
@@ -117,8 +140,8 @@ class RecognitionApp extends React.Component {
 	}
 	
 	handleChangeTotalOptNum(e) {
-		if( 0 < (Number.parseInt(e.target.value, 10)) &&
-				(Number.parseInt(e.target.value, 10) <= 100)){	
+		if( 1 < (Number.parseInt(e.target.value, 10)) &&
+				(Number.parseInt(e.target.value, 10) <= 5)){	
 			this.setState({total_opt_num: Number.parseInt(e.target.value, 10)});
 		}else{
 			this.setState({total_opt_num: 0});
