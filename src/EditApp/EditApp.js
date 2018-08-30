@@ -35,7 +35,9 @@ class EditApp extends React.Component {
 
 		this.state = {
 			total_ques_num : 0,
+			total_ques_num_backup : 0,
 			total_opt_num : 0,
+			total_opt_num_backup : 0,
 			current_prob_num:1,
 			current_prob_num_for_opt:1,			
 			current_opt_num:1,			
@@ -77,9 +79,15 @@ class EditApp extends React.Component {
   	}
   
 	handleClickTotalNum(e) {
+		// check ques num
 		if(this.state.total_ques_num > 0 && this.state.total_opt_num > 0 )
 		{
-			showDataField(1);
+			// todo: pop extra ques
+			if(this.state.total_ques_num < this.state.total_ques_num_backup){
+				var new_ques_set = this.state.ques_set.slice(0,this.state.total_ques_num);
+				this.setState({ques_set: new_ques_set});
+			}
+			showDataField();
 		}
 	}
 
@@ -87,9 +95,10 @@ class EditApp extends React.Component {
 	handleChangeTotalQuesNum(e) {
 		if( 0 < (Number.parseInt(e.target.value, 10)) &&
 				(Number.parseInt(e.target.value, 10) <= 100)){
-			this.setState({total_ques_num: Number.parseInt(e.target.value, 10)});			
+				this.setState({total_ques_num: inputNum});
 		}else{
 			this.setState({total_ques_num: 0});
+			window.alert("題目數範圍限定在1~100之間，請重新輸入");
 		}
 	}
 	
@@ -99,6 +108,7 @@ class EditApp extends React.Component {
 			this.setState({total_opt_num: Number.parseInt(e.target.value, 10)});
 		}else{
 			this.setState({total_opt_num: 0});
+			window.alert("選項數範圍限定在1~100之間，請重新輸入");						
 		}
 	}
 
@@ -292,10 +302,10 @@ class EditApp extends React.Component {
 
     componentDidMount() {
         console.log("componentDidMount");
-        fetch("/action/edit_json/"+ sessionStorage.sheet_id +"/",{
+        fetch("http://18.218.154.134/action/edit_json/"+ sessionStorage.sheet_id +"/",{
             credentials: 'include'
-        })
-        .then(res => res.json())
+		})
+		.then(res => res.json())
         .then(
           (result) => {
             console.log(result.sheet_type);
@@ -303,24 +313,30 @@ class EditApp extends React.Component {
             var sheetData = parseData(result);
 
             this.setState({
-                total_ques_num : 0,
-                total_opt_num : 0,
+				total_ques_num : sheetData.total_ques_num,
+				total_ques_num_backup : sheetData.total_ques_num,				
+				total_opt_num : sheetData.total_opt_num,
+				total_opt_num_backup : sheetData.total_opt_num,
                 sheet_title : sheetData.sheet_title,
                 sheet_footer : sheetData.sheet_footer,
                 sheet_type:sheetData.sheet_type,
-                ques_set: sheetData.ques_set
+				ques_set: sheetData.ques_set
             });      
             
             document.getElementById('sheet-title').value = sheetData.sheet_title;
             document.getElementById('sheet-footer').value = sheetData.sheet_footer;                     
-            
-            showDataField(0);            
+			
+			// tofix
+			document.getElementById('prob-num').disabled = false;
+			document.getElementById('option-num').disabled = false;			
+			document.getElementById('confirm-num-btn').disabled = false;
+			     
             triggerOnChange(sheetData);            
             
             console.log("okok get data successfully");
           },
           (error) => {
-            console.log(error);
+        	console.log(error);
           }
         )
     }
@@ -376,8 +392,8 @@ ReactDOM.render(<EditApp />, document.getElementById('recognition'));
 function sendRequest(sheetData,update){
 	console.log(sheetData,update);
 	var requestUrl = (update) ? 
-		"/action/edit/" + sessionStorage.sheet_id + "/" :
-		"/action/gen/";
+		"http://18.218.154.134/action/edit/" + sessionStorage.sheet_id + "/" :
+		"http://18.218.154.134/action/gen/";
 	$.ajax({
         type: "POST",
 		url: requestUrl,
@@ -509,14 +525,12 @@ function recoverLayout(){
 	}
 }
 
-function showDataField(disableInput){
-    if(disableInput){
-        document.getElementById('prob-num').disabled = "disabled";
-	    document.getElementById('option-num').disabled = "disabled";			
-		document.getElementById('confirm-num-btn').disabled = true;
-        console.log("in");
-    }
-
+function showDataField(){
+	// disable inputs and confirm btn
+	document.getElementById('prob-num').disabled = "disabled";
+	document.getElementById('option-num').disabled = "disabled";			
+	document.getElementById('confirm-num-btn').disabled = true;
+	
 	var problems = document.getElementsByClassName("problem-setting");
 	var options = document.getElementsByClassName("option-setting");
 	var seletors = document.getElementsByClassName("select-setting");
