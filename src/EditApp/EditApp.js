@@ -69,6 +69,58 @@ class EditApp extends React.Component {
 							description : '極度不滿意'
 						}
 					]
+				},
+				{
+					'prob_num' : 2,
+					'problem': '請問您對櫃位所提供的「擇性」滿意度為何？',
+					'options': [
+						{
+							opt_num : 1,
+							description : '極度滿意'
+						},
+						{
+							opt_num : 2,
+							description : '滿意'
+						},
+						{
+							opt_num : 3,
+							description : '普通'
+						},
+						{
+							opt_num : 4,
+							description : '不滿意'
+						},
+						{
+							opt_num : 5,
+							description : '極度不滿意'
+						}
+					]
+				},
+				{
+					'prob_num' : 3,
+					'problem': '請問您對櫃位所提供的「213213」滿意度為何？',
+					'options': [
+						{
+							opt_num : 1,
+							description : '極度滿意'
+						},
+						{
+							opt_num : 2,
+							description : '滿意'
+						},
+						{
+							opt_num : 3,
+							description : '普通'
+						},
+						{
+							opt_num : 4,
+							description : '不滿意'
+						},
+						{
+							opt_num : 5,
+							description : '極度不滿意'
+						}
+					]
 				}
 			],
 			sheet_title:'問卷預覽區',
@@ -95,6 +147,7 @@ class EditApp extends React.Component {
 	handleChangeTotalQuesNum(e) {
 		if( 0 < (Number.parseInt(e.target.value, 10)) &&
 				(Number.parseInt(e.target.value, 10) <= 100)){
+				let inputNum = Number.parseInt(e.target.value, 10);
 				this.setState({total_ques_num: inputNum});
 		}else{
 			this.setState({total_ques_num: 0});
