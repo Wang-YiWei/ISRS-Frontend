@@ -358,7 +358,8 @@ function sendRequest(sheetData){
 }
 
 function showResult(data) {
-    console.log(data);
+	console.log(data);
+	window.location.href = '/action/list/';
 }
 
 function onError(error) {

@@ -35,9 +35,9 @@ class EditApp extends React.Component {
 
 		this.state = {
 			total_ques_num : 0,
-			total_ques_num_backup : 0,
+			total_ques_num_backup : 3,
 			total_opt_num : 0,
-			total_opt_num_backup : 0,
+			total_opt_num_backup : 5,
 			current_prob_num:1,
 			current_prob_num_for_opt:1,			
 			current_opt_num:1,			
@@ -134,10 +134,23 @@ class EditApp extends React.Component {
 		// check ques num
 		if(this.state.total_ques_num > 0 && this.state.total_opt_num > 0 )
 		{
-			// todo: pop extra ques
+			// todo : pop extra ques
+			var new_ques_set;
 			if(this.state.total_ques_num < this.state.total_ques_num_backup){
-				var new_ques_set = this.state.ques_set.slice(0,this.state.total_ques_num);
+				new_ques_set = this.state.ques_set.slice(0,this.state.total_ques_num);
+				// this.setState({ques_set: new_ques_set});
+				// console.log("in-----");				
+			}
+			// tofix : setState 一次就好
+			if(this.state.total_opt_num < this.state.total_opt_num_backup){
+				for(let i = 0 ; i < new_ques_set.length ; i++){
+					for(let j = 0 ; j < new_ques_set[i].options.length ; j++){
+						var new_options = new_ques_set[i].options.slice(0,this.state.total_opt_num);
+						new_ques_set[i].options = new_options;
+					}
+				}
 				this.setState({ques_set: new_ques_set});
+				console.log("in--");
 			}
 			showDataField();
 		}
@@ -379,14 +392,11 @@ class EditApp extends React.Component {
             document.getElementById('sheet-title').value = sheetData.sheet_title;
             document.getElementById('sheet-footer').value = sheetData.sheet_footer;                     
 			
-			// tofix
 			document.getElementById('prob-num').disabled = false;
 			document.getElementById('option-num').disabled = false;			
 			document.getElementById('confirm-num-btn').disabled = false;
 			     
             triggerOnChange(sheetData);            
-            
-            console.log("okok get data successfully");
           },
           (error) => {
         	console.log(error);
@@ -445,8 +455,8 @@ ReactDOM.render(<EditApp />, document.getElementById('recognition'));
 function sendRequest(sheetData,update){
 	console.log(sheetData,update);
 	var requestUrl = (update) ? 
-		"http://18.218.154.134/action/edit/" + sessionStorage.sheet_id + "/" :
-		"http://18.218.154.134/action/gen/";
+		"/action/edit/" + sessionStorage.sheet_id + "/" :
+		"/action/gen/";
 	$.ajax({
         type: "POST",
 		url: requestUrl,
@@ -458,7 +468,8 @@ function sendRequest(sheetData,update){
 }
 
 function showResult(data) {
-    console.log(data);
+	console.log(data);
+	window.location.href = '/action/list/';
 }
 
 function onError(error) {
