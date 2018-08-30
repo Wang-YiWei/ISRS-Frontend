@@ -33,7 +33,9 @@ class RecognitionApp extends React.Component {
 
 		this.state = {
 			total_ques_num : 0,
+			total_ques_num_backup : 2,
 			total_opt_num : 0,
+			total_opt_num_backup : 5,
 			current_prob_num:1,
 			current_prob_num_for_opt:1,			
 			current_opt_num:1,			
@@ -68,7 +70,7 @@ class RecognitionApp extends React.Component {
 				},
 				{
 					'prob_num' : 2,
-					'problem': '請問您對櫃位所提供的「餐點選擇性」滿意度為何？',
+					'problem': '請問您對櫃位所提供的「餐點份量」滿意度為何？',
 					'options': [
 						{
 							opt_num : 1,
