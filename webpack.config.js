@@ -1,11 +1,11 @@
 var UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
-    entry: "./src/ResultApp/ResultApp.js",
+    entry: "./src/EditApp/EditApp.js",
     output: {
         path: __dirname,
-        filename: "./dist/resultBundle.js",
-        sourceMapFilename: 'resultBundle.map'
+        filename: "./dist/editBundle.js",
+        sourceMapFilename: 'editBundle.map'
     },
     devtool: "#source-map",
     module: {

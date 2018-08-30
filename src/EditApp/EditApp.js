@@ -104,6 +104,7 @@ class EditApp extends React.Component {
   
 	handleClickTotalNum(e) {
 		// check ques num
+		// tofix : 一增一減
 		if(this.state.total_ques_num > 0 && this.state.total_opt_num > 1 )
 		{
 			var new_ques_set = this.state.ques_set.slice(0);
@@ -343,40 +344,40 @@ class EditApp extends React.Component {
 
     componentDidMount() {
         console.log("componentDidMount");
-        // fetch("/action/edit_json/"+ sessionStorage.sheet_id +"/",{
-        //     credentials: 'include'
-		// })
-		// .then(res => res.json())
-        // .then(
-        //   (result) => {
-        //     console.log(result.sheet_type);
+        fetch("/action/edit_json/"+ sessionStorage.sheet_id +"/",{
+            credentials: 'include'
+		})
+		.then(res => res.json())
+        .then(
+          (result) => {
+            console.log(result.sheet_type);
 
-        //     var sheetData = parseData(result);
+            var sheetData = parseData(result);
 
-        //     this.setState({
-		// 		total_ques_num : sheetData.total_ques_num,
-		// 		total_ques_num_backup : sheetData.total_ques_num,				
-		// 		total_opt_num : sheetData.total_opt_num,
-		// 		total_opt_num_backup : sheetData.total_opt_num,
-        //         sheet_title : sheetData.sheet_title,
-        //         sheet_footer : sheetData.sheet_footer,
-        //         sheet_type:sheetData.sheet_type,
-		// 		ques_set: sheetData.ques_set
-        //     });      
+            this.setState({
+				total_ques_num : sheetData.total_ques_num,
+				total_ques_num_backup : sheetData.total_ques_num,				
+				total_opt_num : sheetData.total_opt_num,
+				total_opt_num_backup : sheetData.total_opt_num,
+                sheet_title : sheetData.sheet_title,
+                sheet_footer : sheetData.sheet_footer,
+                sheet_type:sheetData.sheet_type,
+				ques_set: sheetData.ques_set
+            });      
             
-        //     document.getElementById('sheet-title').value = sheetData.sheet_title;
-        //     document.getElementById('sheet-footer').value = sheetData.sheet_footer;                     
+            document.getElementById('sheet-title').value = sheetData.sheet_title;
+            document.getElementById('sheet-footer').value = sheetData.sheet_footer;                     
 			
-		// 	document.getElementById('prob-num').disabled = false;
-		// 	document.getElementById('option-num').disabled = false;			
-		// 	document.getElementById('confirm-num-btn').disabled = false;
+			document.getElementById('prob-num').disabled = false;
+			document.getElementById('option-num').disabled = false;			
+			document.getElementById('confirm-num-btn').disabled = false;
 			     
-        //     triggerOnChange(sheetData);            
-        //   },
-        //   (error) => {
-        // 	console.log(error);
-        //   }
-        // )
+            triggerOnChange(sheetData);            
+          },
+          (error) => {
+        	console.log(error);
+          }
+        )
     }
 
 	componentDidUpdate() {
