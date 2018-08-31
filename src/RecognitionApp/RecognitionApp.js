@@ -33,7 +33,7 @@ class RecognitionApp extends React.Component {
 
 		this.state = {
 			total_ques_num : 0,
-			total_ques_num_backup : 2,
+			total_ques_num_backup : 3,
 			total_opt_num : 0,
 			total_opt_num_backup : 5,
 			current_prob_num:1,
@@ -305,14 +305,20 @@ class RecognitionApp extends React.Component {
 				sheetData.ques_set[i].options[j] = sheetData.ques_set[i].options[j].description;
 			}
 		}
-	
-		// console.log(this.state);
-		// fill_color();
-		// console.log(JSON.stringify(this.state));
 
 		var doc = new jsPDF();
 		var sheet = document.getElementsByClassName('sheet-container')[0];
+		var opts = document.getElementsByClassName('option-checkbox');
+
+		// modify css style of sheet div
 		sheet.style.border = "none";
+		sheet.style.boxShadow = "none";
+		sheet.style.webkitBoxShadow = "none";
+
+		for(let k = 0 ; k < opts.length ; k++){
+			opts[k].style.border = "3px solid #000000";
+		}
+
     	html2canvas(sheet, {
     	    onrendered: function (canvas) {
     	        var image = canvas.toDataURL("image/png");
@@ -321,7 +327,13 @@ class RecognitionApp extends React.Component {
     	    }
 		});
 
-		sheet.style.border = "1px solid #293fbd";
+		// revert original style
+		sheet.style.border = "1px solid rgba(0, 0, 0, 0.1)";
+		sheet.style.boxShadow = "0px 4px 4px 1px rgba(0, 0, 0, 0.1)";
+		sheet.style.webkitBoxShadow = "0px 4px 4px 1px rgba(0, 0, 0, 0.1)";
+		for(let k = 0 ; k < opts.length ; k++){
+			opts[k].style.border = "3px solid #333333";
+		}
 		sendRequest(sheetData);
 	}
 
@@ -405,7 +417,7 @@ function updateSheetType(){
 				optionSet[j].style.flexDirection = "column";			
 			}
 			for(let j = 0; j < probNums.length ; j++){
-				probNums[j].style.border = "5px solid #333333";
+				probNums[j].style.border = "3px solid #000000";
 				probNums[j].style.borderRadius = "100%";
 				probNums[j].style.fontSize = "18px";				
 			}
@@ -445,9 +457,10 @@ function recoverLayout(){
 }
 
 function showDataField(){
-	document.getElementById('prob-num').disabled = "disabled";
-	document.getElementById('option-num').disabled = "disabled";			
+	document.getElementById('prob-num').disabled = true;
+	document.getElementById('option-num').disabled = true;			
 	document.getElementById('confirm-num-btn').disabled = true;
+
 	var problems = document.getElementsByClassName("problem-setting");
 	var options = document.getElementsByClassName("option-setting");
 	var seletors = document.getElementsByClassName("select-setting");
