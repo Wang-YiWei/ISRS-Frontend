@@ -25,9 +25,9 @@ class ResultApp extends React.Component {
             var counter = 0;
 
             if(result.response_conclude.length > 0){
-                values = Object.values(result.response_conclude[0]);
-                for(let k = 0 ; k < values.length ; k++){
-                    counter += values[k];
+                var optnums = result.response_conclude[0].length;
+                for(let k = 0 ; k < optnums ; k++){
+                    counter += result.response_conclude[0][k].value;
                 }
             }
 
@@ -178,17 +178,20 @@ function drawBarchart(data,ith){
 
     function change() {
         // Copy-on-write since tweens are evaluated after a delay.
-        var x0 = x.domain(data.sort(this.checked ?
-                    function (a, b) {
-                        return b.value - a.value;
-                    } :
-                    function (a, b) {
-                        return d3.ascending(a.description, b.description);
-                    })
+        if(this.checked){
+            var x0 = x.domain(data.slice().sort(
+                function (a, b) {
+                    return b.value - a.value;
+                })
                 .map(function (d) {
                     return d.description;
-                }))
-            .copy();
+                })).copy();
+        }
+        else{
+            var x0 = x.domain(data.map(function (d) {
+                return d.description;
+            })).copy();
+        }
 
         svg.selectAll(".bar"+ith)
             .sort(function (a, b) {
