@@ -11,6 +11,26 @@ body {
     align-items: center;
 }
 
+.sheet-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 1200px;
+}
+
+#sheet-count{
+    font-size: 20px;
+    font-family: 'Noto Sans', sans-serif;
+    color: #274667;    
+    margin-right: 20px;
+}
+
+#csv-img{
+    width:45px;
+    height:45px;
+}
+
 .ques-list {
     width: 1200px;
     display: flex;
