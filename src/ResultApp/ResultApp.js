@@ -57,7 +57,7 @@ class ResultApp extends React.Component {
                     <div>
                         <a className="download-icons"
                             href={"/action/response_csv/"+ sessionStorage.sheet_id}>
-                            <img id="csv-img" src="/src/images/csv-download.png"/>
+                            <img id="csv-img" src="/static/src/images/csv-download.png"/>
                         </a>
                     </div>
                 </div>
