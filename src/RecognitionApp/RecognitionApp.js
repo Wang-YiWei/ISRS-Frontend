@@ -29,6 +29,8 @@ class RecognitionApp extends React.Component {
 		this.handleChangeTitle = this.handleChangeTitle.bind(this);		
 		this.handleChangeFooter = this.handleChangeFooter.bind(this);
 
+		this.handleRadioChange = this.handleRadioChange.bind(this);
+
 		this.handleClickGenTemplate = this.handleClickGenTemplate.bind(this);
 
 		this.state = {
@@ -281,6 +283,10 @@ class RecognitionApp extends React.Component {
 		}	
 	}
 
+	handleRadioChange(e){
+		console.log("nothing!");
+	}
+
 	handleClickGenTemplate(e){
 		e.preventDefault();
 		var filename = this.state.sheet_title+".pdf";
@@ -315,6 +321,10 @@ class RecognitionApp extends React.Component {
 		sheet.style.boxShadow = "none";
 		sheet.style.webkitBoxShadow = "none";
 
+		var sheetTitle = document.getElementsByClassName('sheet-title')[0];
+		sheetTitle.style.color = "#000000";
+		sheetTitle.style.borderBottom = "1px solid #000000";
+
 		for(let k = 0 ; k < opts.length ; k++){
 			opts[k].style.border = "3px solid #000000";
 		}
@@ -331,6 +341,10 @@ class RecognitionApp extends React.Component {
 		sheet.style.border = "1px solid rgba(0, 0, 0, 0.1)";
 		sheet.style.boxShadow = "0px 4px 4px 1px rgba(0, 0, 0, 0.1)";
 		sheet.style.webkitBoxShadow = "0px 4px 4px 1px rgba(0, 0, 0, 0.1)";
+
+		sheetTitle.style.color = "#333333";
+		sheetTitle.style.borderBottom = "1px solid #333333";
+
 		for(let k = 0 ; k < opts.length ; k++){
 			opts[k].style.border = "3px solid #333333";
 		}
@@ -373,6 +387,7 @@ class RecognitionApp extends React.Component {
 				  handleChangeTitle={this.handleChangeTitle}
 				  handleChangeFooter={this.handleChangeFooter}
 
+				  handleRadioChange = {this.handleRadioChange}
 				  handleClickGenTemplate={this.handleClickGenTemplate}
 				/>
 		  	</div>
