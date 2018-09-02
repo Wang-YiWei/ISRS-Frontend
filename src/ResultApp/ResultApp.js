@@ -11,6 +11,7 @@ class ResultApp extends React.Component {
             'title': '',
             'question_title': [],
             'response_conclude': [],
+            'valid_sheet_count' : 0
         }     
     }
 
@@ -21,10 +22,20 @@ class ResultApp extends React.Component {
         .then(res => res.json())
         .then(
           (result) => {
+            var counter = 0;
+
+            if(result.response_conclude.length > 0){
+                values = Object.values(result.response_conclude[0]);
+                for(let k = 0 ; k < values.length ; k++){
+                    counter += values[k];
+                }
+            }
+
             this.setState({
                 title: result.title,
                 question_title: result.question_title,
                 response_conclude: result.response_conclude,
+                valid_sheet_count: counter
             });
             
             for(let i = 0 ; i < this.state.response_conclude.length ; i++){
@@ -41,6 +52,15 @@ class ResultApp extends React.Component {
 	render() {
 	    return (
 			<div className="visualization-wrapper">
+                <div className="sheet-info">
+                    <div id="sheet-count">有效問卷數 : {this.state.valid_sheet_count}</div>
+                    <div>
+                        <a className="download-icons"
+                            href={"/action/response_csv/"+ sessionStorage.sheet_id}>
+                            <img id="csv-img" src="/src/images/csv-download.png"/>
+                        </a>
+                    </div>
+                </div>
                 <ResultContainer 
                   title = {this.state.title}
                   quesData = {this.quesData}
