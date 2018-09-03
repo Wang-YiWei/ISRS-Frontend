@@ -35,9 +35,9 @@ class RecognitionApp extends React.Component {
 
 		this.state = {
 			total_ques_num : 0,
-			total_ques_num_backup : 3,
+			total_ques_num_backup : 0,
 			total_opt_num : 0,
-			total_opt_num_backup : 5,
+			total_opt_num_backup : 0,
 			current_prob_num:1,
 			current_prob_num_for_opt:1,			
 			current_opt_num:1,			
@@ -55,18 +55,6 @@ class RecognitionApp extends React.Component {
 						{
 							opt_num : 2,
 							description : '滿意'
-						},
-						{
-							opt_num : 3,
-							description : '普通'
-						},
-						{
-							opt_num : 4,
-							description : '不滿意'
-						},
-						{
-							opt_num : 5,
-							description : '極度不滿意'
 						}
 					]
 				},
@@ -81,18 +69,6 @@ class RecognitionApp extends React.Component {
 						{
 							opt_num : 2,
 							description : '滿意'
-						},
-						{
-							opt_num : 3,
-							description : '普通'
-						},
-						{
-							opt_num : 4,
-							description : '不滿意'
-						},
-						{
-							opt_num : 5,
-							description : '極度不滿意'
 						}
 					]
 				}
